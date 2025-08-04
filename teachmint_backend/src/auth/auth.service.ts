@@ -31,7 +31,7 @@ export class AuthService {
             if (!matched) throw new UnauthorizedException("Invalid password");
             return { email: admin.email, id: admin.id };
         }
-        console.log("yaha user kya ayaa", user);
+        // console.log("yaha user kya ayaa", user);
         if (!user) throw new UnauthorizedException("User email not found");
         const matched = await this.hasingService.compare(password, user.password);
         if (!matched) throw new UnauthorizedException("Invalid password");

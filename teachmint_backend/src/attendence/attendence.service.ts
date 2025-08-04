@@ -85,10 +85,6 @@ export class AttendenceService {
       where: { studentId }
     })
   }
-async queryBulder(){
-
-}
-
 }
 
 

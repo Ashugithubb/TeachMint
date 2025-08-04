@@ -3,7 +3,7 @@ import { IsOptional, IsString } from "class-validator";
 
 export class CreateClassDto {
     @IsString()
-    @Transform(({ value }) => value.trim().toUppercase())
+    // @Transform(({ value}) => value?.trim().toUppercase())
     name:string
 
     @IsOptional()

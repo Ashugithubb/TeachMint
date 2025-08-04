@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { StudentQueryDto } from './dto/studetn.query.dto';
 
 @Controller('student')
 export class StudentController {
@@ -24,4 +25,8 @@ export class StudentController {
       return this.studentService.myClassInfomation(studentId);
   }
 
+  @Get()
+  allStudents(query:StudentQueryDto){
+    return this.allStudents(query);
+  }
 }

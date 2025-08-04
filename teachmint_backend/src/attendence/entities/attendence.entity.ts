@@ -6,6 +6,9 @@ import { Attendance } from '../enum/attendence.status';
 
 @Entity('attendences')
 export class Attendence {
+    @PrimaryGeneratedColumn()
+    id: number
+
     @PrimaryColumn()
     classId: number;
 
@@ -14,7 +17,6 @@ export class Attendence {
 
     @PrimaryColumn()
     subjectId: number;
-
 
     @ManyToOne(() => Class)
     @JoinColumn({ name: 'classId' })
@@ -28,7 +30,6 @@ export class Attendence {
     @JoinColumn({ name: 'subjectId' })
     subject: Subject;
 
-    @Column({ type: 'jsonb', default:{} })
+    @Column({ type: 'jsonb', default: {} })
     sessions: { [key: string]: Attendance };
-
 }

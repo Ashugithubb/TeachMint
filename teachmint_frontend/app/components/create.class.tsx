@@ -46,9 +46,9 @@ export default function CreateClassForm() {
 
     const onSubmit = async (data: classFormData) => {
         try {
-            console.log("hanji");
-            dispatch(createClass(data));
-            toast.success("Class Created successfully!");
+            
+              dispatch(createClass(data));
+            
         }
         catch (error) {
             if (axios.isAxiosError(error) && error.response) {

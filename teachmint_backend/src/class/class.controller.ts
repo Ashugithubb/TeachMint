@@ -27,4 +27,8 @@ export class ClassController {
   allClasses(){
     return this.classService.allClasses();
   }
+  @Delete('admin/student/:studentId')
+  removeStudentFromClass(@Param('studentId')studentId:number){
+    return this.classService.removeStudentFromClasse(studentId)
+  }
 }

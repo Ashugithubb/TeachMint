@@ -9,7 +9,7 @@ export class AttendenceController {
   constructor(private readonly attendenceService: AttendenceService) { }
 
   @Patch('teacher/students')
-  async updateAttendance(@Body() dto: StudentAttendanceUpdateDto) {
+  async updateAttendance(@Body() dto: StudentAttendanceUpdateDto) {  //Put
     return this.attendenceService.MarkStudentsAttendeance(dto);
   }
 

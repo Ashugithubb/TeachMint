@@ -92,7 +92,31 @@ export class ClassService {
     return await this.classRepo.find()
   }
 
+  async removeStudentFromClasse(studentId:number){
+   
+     return await this.stduentService.removeStudentFomClass(studentId);
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

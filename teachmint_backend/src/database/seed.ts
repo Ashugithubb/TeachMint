@@ -6,8 +6,8 @@ import TeacherSeeder from './seeds/teacher.seeds';
 
 async function seed() {
   await AppDataSource.initialize();
-  //  await new  StudentSeeder().run(AppDataSource);
-   await new TeacherSeeder().run(AppDataSource);
+   await new  StudentSeeder().run(AppDataSource);
+  //  await new TeacherSeeder().run(AppDataSource);
   console.log('seeding complete');
 }
 

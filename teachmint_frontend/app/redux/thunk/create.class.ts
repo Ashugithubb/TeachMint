@@ -1,7 +1,7 @@
-
 import { classSchema } from '@/app/schema/create.class.schema';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import z from 'zod';
 
 type classFormDate = z.infer<typeof classSchema>;
@@ -15,6 +15,7 @@ export const createClass = createAsyncThunk(
         data,
         { withCredentials: true }
       );
+      toast.success("Class Created successfully!");
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response?.data || 'Something went wrong');

@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { Student } from './entities/student.entity';
 import { FindOptionsWhere, ILike, IsNull, Repository } from 'typeorm';
 import { AttendenceService } from 'src/attendence/attendence.service';
 import { ClassService } from 'src/class/class.service';
+import { StudentQueryDto } from './dto/studetn.query.dto';
 
 @Injectable()
 export class StudentService {
@@ -74,7 +75,6 @@ export class StudentService {
     for (const subject of studentAttendence) {
       const result = await this.StudentSubjectWiseAttencePercentage(subject.studentId, subject.studentId);
       const percentage = result['Your Subject Percentage is'];
-
       subjectWisePercentage += percentage
 
     }
@@ -90,13 +90,72 @@ export class StudentService {
     return classInfo;
   }
 
-  // async searchStudent(name:string){
-  //   return await this.studentRepo.find({
-  //     where:{name:ILike(`%${name}`)}
-  //   })
+  async allStudents(query: StudentQueryDto) {
+    const { page = 1, limit = 10, name, id, email } = query;
+    const where: FindOptionsWhere<Student> = {};
+    if (name) {
+      where.name = ILike(`%${name}%`);
+    }
+
+    if (id) {
+      where.id = id;
+    }
+    if (email) {
+      where.email = email;
+    }
+    const [student, total] = await this.studentRepo.findAndCount({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return {
+      student,
+      total,
+      page,
+      limit,
+    };
+  }
+
+
+  // async getFilteredRecipes(query: GetRecipesQueryDto) {
+  //   const { page = 1, limit = 10, title, difficultyLevel, category } = query;
+
+  //   const where: FindOptionsWhere<Recipe> = {};
+
+  //   if (title) {
+  //     where.title = ILike(`%${title}%`);
+  //   }
+
+  //   if (difficultyLevel) {
+  //     where.difficultyLevel = difficultyLevel;
+  //   }
+
+  //   if (category) {
+  //     where.category = category;
+  //   }
+  //   const [recepie, total] = await this.recipeRepo.findAndCount({
+  //     where,
+  //     skip: (page - 1) * limit,
+  //     take: limit,
+  //   });
+  //   return {
+  //     recepie,
+  //     total,
+  //     page,
+  //     limit,
+  //   };
+  // }
 
   // }
-  
+
+
+
+
+
+
+
+
+
   async searchStudent(name: String) {
     const where: FindOptionsWhere<Student> = {};
     where.name = ILike(`%${name}%`);
@@ -104,5 +163,31 @@ export class StudentService {
       where
     })
   }
+  async removeStudentFomClass(studentId: number) {
+    //    const student = await this.studentRepo.findOne(
+    //     {
+    //       where:{id:studentId},
+    //       relations:['class']
+    //     }
+    //   );
+    //  if(!student) throw new NotFoundException();
+    //   student.class.
+    //   console.log("student in stduent service,",studentId);
+    //   const res = await this.studentRepo.update(studentId, {
+    //     class: undefined
+    //   })
+    //   if(!res.affected)  throw new NotFoundException("student nt fund")
+    //   return {
+    // message: "student updated"}
+    return "Student is n0t rem0ved fr0m class implement functi0n";
+  }
 
 }
+
+
+// async searchStudent(name:string){
+//   return await this.studentRepo.find({
+//     where:{name:ILike(`%${name}`)}
+//   })
+
+// }

@@ -9,7 +9,7 @@ services:
 networks:
   default:
     external:
-      name: shared-network
+      name: teachmint-network
 
 
 #docker network create shared-network

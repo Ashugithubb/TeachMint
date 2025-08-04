@@ -2,7 +2,7 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-// import userReducer from '../slice/user.slice';
+import studentReducer from '../slice/student.slice';
 import storage from 'redux-persist/lib/storage'; 
 import { persistStore, persistReducer } from 'redux-persist';
 import classReducer from '../slice/class.list.slice';
@@ -13,7 +13,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  // user: userReducer,
+  student: studentReducer,
   classlist: classReducer
 });
 
