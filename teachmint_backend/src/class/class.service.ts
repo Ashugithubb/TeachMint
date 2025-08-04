@@ -23,6 +23,11 @@ export class ClassService {
 
     if (!admin) throw new BadRequestException("Admin does not exist");
 
+    const name = createClassDto.name;
+    
+    const existingClass = await this.classRepo.findOneBy({name});
+    if(existingClass) throw new ConflictException("This class Already Exsit");
+
     const newClass = this.classRepo.create({
       ...createClassDto,
       admin
@@ -71,19 +76,19 @@ export class ClassService {
     return await this.classRepo.findOneBy({ id });
   }
 
-  async studentClassInfo(studentId:number){
+  async studentClassInfo(studentId: number) {
     const studentClass = await this.classRepo.find({
-      where:{students:{id:studentId}},
-      select:["id"]
+      where: { students: { id: studentId } },
+      select: ["id"]
     })
     const classId = studentClass[0].id;
     return await this.classRepo.find({
-      where:{id:classId},
-      relations:['students']
+      where: { id: classId },
+      relations: ['students']
     })
   }
 
-  async allClasses(){
+  async allClasses() {
     return await this.classRepo.find()
   }
 
@@ -99,6 +104,6 @@ export class ClassService {
 
 
 // return classEntity.students.map((s) => ({
-  //   id: s.id,
-  //   name: s.name,
-  // }));
+//   id: s.id,
+//   name: s.name,
+// }));
