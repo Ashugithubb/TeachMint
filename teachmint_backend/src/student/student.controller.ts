@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -26,7 +26,7 @@ export class StudentController {
   }
 
   @Get()
-  allStudents(query:StudentQueryDto){
-    return this.allStudents(query);
+  allStudents(@Query()query:StudentQueryDto){
+    return this.studentService.allStudents(query);
   }
 }

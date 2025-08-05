@@ -8,7 +8,6 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export const signupUser = createAsyncThunk(
   'auth/signup',
   async (data: SignupFormData, thunkAPI) => {
-    console.log(data);
     try {
       const response = await axios.post(
         'http://localhost:3001/admin/signup',
@@ -17,7 +16,10 @@ export const signupUser = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Something went wrong');
+      const errorMessage =
+        error.response?.data?.message || 'Something went wrong';
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
+

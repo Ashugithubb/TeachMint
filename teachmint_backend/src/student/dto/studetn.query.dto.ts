@@ -15,12 +15,10 @@ export class StudentQueryDto {
 
   @IsOptional()
   @IsString()
-  name?: string;
+  searchValue?: string;
   
   
-  @IsOptional()
-  @IsString()
-  email?: string;
+ 
 
   @IsOptional()
   @Type(() => Number)

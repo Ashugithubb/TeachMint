@@ -91,18 +91,16 @@ export class StudentService {
   }
 
   async allStudents(query: StudentQueryDto) {
-    const { page = 1, limit = 10, name, id, email } = query;
-    const where: FindOptionsWhere<Student> = {};
-    if (name) {
-      where.name = ILike(`%${name}%`);
-    }
-
-    if (id) {
-      where.id = id;
-    }
-    if (email) {
-      where.email = email;
-    }
+    const { page = 1, limit = 10, id, searchValue } = query;
+    let where: FindOptionsWhere<Student>[] | FindOptionsWhere<Student> = {};
+    if (searchValue) {
+      where = [
+        { name: ILike(`%${searchValue}%`) },
+        { email: ILike(`%${searchValue}%`) },
+      ];
+     } //else if (id) {
+    //   where = { id };
+    // }
     const [student, total] = await this.studentRepo.findAndCount({
       where,
       skip: (page - 1) * limit,
@@ -115,46 +113,6 @@ export class StudentService {
       limit,
     };
   }
-
-
-  // async getFilteredRecipes(query: GetRecipesQueryDto) {
-  //   const { page = 1, limit = 10, title, difficultyLevel, category } = query;
-
-  //   const where: FindOptionsWhere<Recipe> = {};
-
-  //   if (title) {
-  //     where.title = ILike(`%${title}%`);
-  //   }
-
-  //   if (difficultyLevel) {
-  //     where.difficultyLevel = difficultyLevel;
-  //   }
-
-  //   if (category) {
-  //     where.category = category;
-  //   }
-  //   const [recepie, total] = await this.recipeRepo.findAndCount({
-  //     where,
-  //     skip: (page - 1) * limit,
-  //     take: limit,
-  //   });
-  //   return {
-  //     recepie,
-  //     total,
-  //     page,
-  //     limit,
-  //   };
-  // }
-
-  // }
-
-
-
-
-
-
-
-
 
   async searchStudent(name: String) {
     const where: FindOptionsWhere<Student> = {};
