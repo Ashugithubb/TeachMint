@@ -7,7 +7,6 @@ import { FindOptionsWhere, ILike, IsNull, Repository } from 'typeorm';
 import { AttendenceService } from 'src/attendence/attendence.service';
 import { ClassService } from 'src/class/class.service';
 import { StudentQueryDto } from './dto/studetn.query.dto';
-
 @Injectable()
 export class StudentService {
   constructor(@InjectRepository(Student) private readonly studentRepo: Repository<Student>,
@@ -91,17 +90,16 @@ export class StudentService {
   }
 
   async allStudents(query: StudentQueryDto) {
-    const { page = 1, limit = 10, name, id, email } = query;
-    const where: FindOptionsWhere<Student> = {};
-    if (name) {
-      where.name = ILike(`%${name}%`);
-    }
-    if (id) {
-      where.id = id;
-    }
-    if (email) {
-      where.email = email;
-    }
+    const { page = 1, limit = 10, id, searchValue } = query;
+    let where: FindOptionsWhere<Student>[] | FindOptionsWhere<Student> = {};
+    if (searchValue) {
+      where = [
+        { name: ILike(`%${searchValue}%`) },
+        { email: ILike(`%${searchValue}%`) },
+      ];
+     } //else if (id) {
+    //   where = { id };
+    // }
     const [student, total] = await this.studentRepo.findAndCount({
       where,
       skip: (page - 1) * limit,
@@ -115,7 +113,14 @@ export class StudentService {
     };
   }
 
-async removeStudentFomClass(studentId: number) {
+  async searchStudent(name: String) {
+    const where: FindOptionsWhere<Student> = {};
+    where.name = ILike(`%${name}%`);
+    return this.studentRepo.find({
+      where
+    })
+  }
+  async removeStudentFomClass(studentId: number) {
     //    const student = await this.studentRepo.findOne(
     //     {
     //       where:{id:studentId},

@@ -42,18 +42,17 @@ export default function LoginForm() {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
-  const notify = () => toast("Login Successfull!");
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      dispatch(loginUser(data));
-      notify()
-      router.push('/home');
-    }
-    catch (err) {
-      toast.error("Login failed: " + (err as Error).message);
-    }
+  const res = await dispatch(loginUser(data));
 
-  };
+  if (res.meta.requestStatus === 'fulfilled') {
+    toast.success("Login successful!");
+    router.push('/home');
+  } else {
+    toast.error(res.payload || "Login failed");
+  }
+};
+
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };

@@ -39,7 +39,7 @@ export class ClassService {
     const { classId, studentId } = addStudentToClassDto
     const classEntity = await this.classRepo.findOne({
       where: { id: classId },
-      // relations: ["students"]
+      relations: ["students"]
     });
     const student = await this.stduentService.findOne(studentId);
 
@@ -52,7 +52,7 @@ export class ClassService {
 
 
     classEntity.students.push(student)
-
+console.log("added");
     await this.classRepo.save(classEntity);
     return "student Added to class";
 

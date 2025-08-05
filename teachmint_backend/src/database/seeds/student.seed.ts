@@ -16,10 +16,27 @@ export default class StudentSeeder implements Seeder {
 
     students.push(
       studentRepo.create({
-        name: 'Harish Garg',
-        email: 'hasrish123@gmail.com'
-      },
-      ),
+        name: 'Arsh Garg',
+        email: 'arsh123@gmail.com',
+      }),
+    );
+    students.push(
+      studentRepo.create({
+        name: 'Sagar',
+        email: 'sagar123@gmail.com',
+      }),
+    );
+  students.push(
+      studentRepo.create({
+        name: 'ansh',
+        email: 'ans123@gmail.com',
+      }),
+    );
+    students.push(
+      studentRepo.create({
+        name: 'raman',
+        email: 'raman123@gmail.com',
+      }),
     );
 
 
