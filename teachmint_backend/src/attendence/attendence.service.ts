@@ -18,7 +18,6 @@ export class AttendenceService {
         subjectId,
         studentId: id
       })
-
       await this.attendaceRepo.save(attendanceEntry);
     })
   }
