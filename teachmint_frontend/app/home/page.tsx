@@ -11,6 +11,9 @@ import SearchComponent from "../components/SearchComponent"
 import AddStudentComponent from "../components/AddStudentToClass";
 import { useAppDispatch } from "../redux/hook/hook";
 import { getClassAttendanceThunk } from "../redux/slice/class.attendance";
+import FilterComponent from "../components/check";
+import BasicExampleDataGrid from "../components/check2";
+
 
 export default function Home() {
     const [addClass, setAddClass] = useState(false);
@@ -44,7 +47,8 @@ export default function Home() {
            
             {listOfStudents && <Students/> }
             {AddStudent && <AddStudentComponent/>}
-
+            <FilterComponent/>
+            <BasicExampleDataGrid/>
         </>
     )
 }
