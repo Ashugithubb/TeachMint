@@ -9,8 +9,9 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class SubjectService {
   constructor(@InjectRepository(Subject) private readonly subjectRepo:Repository<Subject>){}
-  create(createSubjectDto: CreateSubjectDto) {
-    return 'This action adds a new subject';
+  async create(createSubjectDto: CreateSubjectDto) {
+
+    return await this.subjectRepo.save(createSubjectDto);
   }
 
   findAll() {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateAttendenceDto } from './dto/create-attendence.dto';
 import { UpdateAttendenceDto } from './dto/update-attendence.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,10 +6,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Attendence } from './entities/attendence.entity';
 import { StudentAttendanceUpdateDto } from './dto/teacher-update-attendance.dto';
+import { ClassSubjectTeacherService } from 'src/class-subject-teacher/class-subject-teacher.service';
 
 @Injectable()
 export class AttendenceService {
-  constructor(@InjectRepository(Attendence) private readonly attendaceRepo: Repository<Attendence>) { }
+  constructor(@InjectRepository(Attendence) private readonly attendaceRepo: Repository<Attendence>,
+              @Inject(forwardRef(() => ClassSubjectTeacherService))
+              private readonly classSubjectTeacherService:ClassSubjectTeacherService) { }
 
   async addStudentAttendanceSubjectWise(classId: number, subjectId: number, students: number[]) {
     students.forEach(async (id, indx) => {
@@ -22,9 +25,13 @@ export class AttendenceService {
     })
   }
 
-  async findAttendenceList(classId, subjectId) {
+  async findAttendenceList(classId: number, subjectId: number, teacherId: number) {
+    const teacher = await this.classSubjectTeacherService.findOne(classId, subjectId, teacherId);
+    if (!teacher) throw new ForbiddenException("You are not part of this class or Subject");
     return this.attendaceRepo.find({
-      where: { classId, subjectId }
+      where: { classId, subjectId },
+      select:['student','sessions'],
+      relations:['student']
     })
   }
 

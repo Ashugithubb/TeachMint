@@ -16,6 +16,6 @@ export class ClassSubjectTeacher {
   @ManyToOne(() => Subject, { eager: true })
   subject: Subject;
 
-  @ManyToOne(() => Teacher, { eager: true })
+  @ManyToOne(() => Teacher)
   teacher: Teacher;
 }

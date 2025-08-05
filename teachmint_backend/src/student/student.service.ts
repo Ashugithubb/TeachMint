@@ -7,7 +7,6 @@ import { FindOptionsWhere, ILike, IsNull, Repository } from 'typeorm';
 import { AttendenceService } from 'src/attendence/attendence.service';
 import { ClassService } from 'src/class/class.service';
 import { StudentQueryDto } from './dto/studetn.query.dto';
-
 @Injectable()
 export class StudentService {
   constructor(@InjectRepository(Student) private readonly studentRepo: Repository<Student>,
@@ -140,6 +139,7 @@ export class StudentService {
     return "Student is n0t rem0ved fr0m class implement functi0n";
   }
 
+
 }
 
 
@@ -149,3 +149,29 @@ export class StudentService {
 //   })
 
 // }
+
+  // async searchStudent(name: String) {
+  //   const where: FindOptionsWhere<Student> = {};
+  //   where.name = ILike(`%${name}%`);
+  //   return this.studentRepo.find({
+  //     where
+  //   })
+  // }
+  // async removeStudentFomClass(studentId: number) {
+  //   //    const student = await this.studentRepo.findOne(
+  //   //     {
+  //   //       where:{id:studentId},
+  //   //       relations:['class']
+  //   //     }
+  //   //   );
+  //   //  if(!student) throw new NotFoundException();
+  //   //   student.class.
+  //   //   console.log("student in stduent service,",studentId);
+  //   //   const res = await this.studentRepo.update(studentId, {
+  //   //     class: undefined
+  //   //   })
+  //   //   if(!res.affected)  throw new NotFoundException("student nt fund")
+  //   //   return {
+  //   // message: "student updated"}
+  //   return "Student is n0t rem0ved fr0m class implement functi0n";
+  // }
