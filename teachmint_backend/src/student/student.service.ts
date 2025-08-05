@@ -96,7 +96,6 @@ export class StudentService {
     if (name) {
       where.name = ILike(`%${name}%`);
     }
-
     if (id) {
       where.id = id;
     }
@@ -116,54 +115,7 @@ export class StudentService {
     };
   }
 
-
-  // async getFilteredRecipes(query: GetRecipesQueryDto) {
-  //   const { page = 1, limit = 10, title, difficultyLevel, category } = query;
-
-  //   const where: FindOptionsWhere<Recipe> = {};
-
-  //   if (title) {
-  //     where.title = ILike(`%${title}%`);
-  //   }
-
-  //   if (difficultyLevel) {
-  //     where.difficultyLevel = difficultyLevel;
-  //   }
-
-  //   if (category) {
-  //     where.category = category;
-  //   }
-  //   const [recepie, total] = await this.recipeRepo.findAndCount({
-  //     where,
-  //     skip: (page - 1) * limit,
-  //     take: limit,
-  //   });
-  //   return {
-  //     recepie,
-  //     total,
-  //     page,
-  //     limit,
-  //   };
-  // }
-
-  // }
-
-
-
-
-
-
-
-
-
-  async searchStudent(name: String) {
-    const where: FindOptionsWhere<Student> = {};
-    where.name = ILike(`%${name}%`);
-    return this.studentRepo.find({
-      where
-    })
-  }
-  async removeStudentFomClass(studentId: number) {
+async removeStudentFomClass(studentId: number) {
     //    const student = await this.studentRepo.findOne(
     //     {
     //       where:{id:studentId},
@@ -182,6 +134,7 @@ export class StudentService {
     return "Student is n0t rem0ved fr0m class implement functi0n";
   }
 
+
 }
 
 
@@ -191,3 +144,29 @@ export class StudentService {
 //   })
 
 // }
+
+  // async searchStudent(name: String) {
+  //   const where: FindOptionsWhere<Student> = {};
+  //   where.name = ILike(`%${name}%`);
+  //   return this.studentRepo.find({
+  //     where
+  //   })
+  // }
+  // async removeStudentFomClass(studentId: number) {
+  //   //    const student = await this.studentRepo.findOne(
+  //   //     {
+  //   //       where:{id:studentId},
+  //   //       relations:['class']
+  //   //     }
+  //   //   );
+  //   //  if(!student) throw new NotFoundException();
+  //   //   student.class.
+  //   //   console.log("student in stduent service,",studentId);
+  //   //   const res = await this.studentRepo.update(studentId, {
+  //   //     class: undefined
+  //   //   })
+  //   //   if(!res.affected)  throw new NotFoundException("student nt fund")
+  //   //   return {
+  //   // message: "student updated"}
+  //   return "Student is n0t rem0ved fr0m class implement functi0n";
+  // }
