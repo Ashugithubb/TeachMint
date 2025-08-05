@@ -45,22 +45,13 @@ export default function CreateClassForm() {
     });
 
     const onSubmit = async (data: classFormData) => {
-        try {
-            
-              dispatch(createClass(data));
-            
-        }
-        catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                const { message } = error.response.data;
-                toast.error(message);
-            } else {
-                toast.error("Something went wrong");
-            }
-            console.log(error);
+        const res = await dispatch(createClass(data));
+        if (res.meta.requestStatus === 'fulfilled') {
+            toast.success("Class Created successfully!");
+        } else {
+            toast.error(res.payload || "Login failed");
         }
     };
-
     return (
         <>
             <ToastContainer />
@@ -77,7 +68,7 @@ export default function CreateClassForm() {
 
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
                         <TextField
-                            label="First Name"
+                            label="Enter class Name"
                             {...register('name')}
                             error={!!errors.name}
                             helperText={errors.name?.message}
@@ -93,8 +84,8 @@ export default function CreateClassForm() {
                             fullWidth
                             margin="normal"
                         />
-                         <TextField
-                           label="Give Academic Year"
+                        <TextField
+                            label="Give Academic Year"
                             {...register('acadmicYear')}
                             error={!!errors.acadmicYear}
                             helperText={errors.acadmicYear?.message}

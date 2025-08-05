@@ -18,12 +18,7 @@ export class TeacherService {
   ) { }
 
   async getAttendenceList(dto:TeacherAttendanceDto,teacherId) {
-    const {classId,subjectId} = dto
-      const teacher = await this.classSubjectTeacherService.findOne(classId,subjectId,teacherId);
-        if(!teacher) throw new ForbiddenException("You are not part of this class or Subject");
-
-        return this.attendenceService.findAttendenceList(classId,subjectId);
-
+    
   }
 
 
@@ -47,16 +42,17 @@ async findOne(id: number) {
   }
 
 
-
+async findAllClasses(teacherId:number) {
+    return await this.classSubjectTeacherService.teacherAllClasses(teacherId)
+   
+  }
 
   
 
   create(createTeacherDto: CreateTeacherDto) {
     return 'This action adds a new teacher';
   }
-  findAll() {
-    return `This action returns all teacher`;
-  }
+ 
   update(id: number, updateTeacherDto: UpdateTeacherDto) {
     return `This action updates a #${id} teacher`;
   }

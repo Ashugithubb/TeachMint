@@ -6,9 +6,6 @@ import { Attendance } from '../enum/attendence.status';
 
 @Entity('attendences')
 export class Attendence {
-    @PrimaryGeneratedColumn()
-    id: number
-
     @PrimaryColumn()
     classId: number;
 

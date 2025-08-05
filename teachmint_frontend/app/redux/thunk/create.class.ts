@@ -8,17 +8,18 @@ type classFormDate = z.infer<typeof classSchema>;
 
 export const createClass = createAsyncThunk(
   'class/create',
-  async (data:classFormDate, thunkAPI) => {
+  async (data: classFormDate, thunkAPI) => {
     try {
       const response = await axios.post(
         'http://localhost:3001/class',
         data,
         { withCredentials: true }
       );
-      toast.success("Class Created successfully!");
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Something went wrong');
+      const errorMessage =
+        error.response?.data?.message || 'Something went wrong';
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );

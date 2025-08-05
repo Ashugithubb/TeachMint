@@ -14,17 +14,13 @@ export class TeacherController {
     return this.teacherService.create(createTeacherDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('student/attendance/list')
-  getAttendenceList(@Body()dto:TeacherAttendanceDto,@Req() req){
-    const teacherId = req.user.id;
-    return this.teacherService.getAttendenceList(dto,teacherId)
-  }
+  
 
-
-  @Get()
-  findAll() {
-    return this.teacherService.findAll();
+// @UseGuards(JwtAuthGuard)
+  @Get('class')
+  findAllClasses(@Req() req) {
+    // const teacherId=req.user.id
+    return this.teacherService.findAllClasses(1);
   }
 
 

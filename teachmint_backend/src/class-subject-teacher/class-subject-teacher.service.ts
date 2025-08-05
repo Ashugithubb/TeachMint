@@ -69,6 +69,12 @@ export class ClassSubjectTeacherService {
       }
     })
   }
+  async teacherAllClasses(teacherId:number){
+        return await this.classSubjectTeacherRepo.find({
+          where:{teacher:{id:teacherId}},
+          select:["class","subject"]
+        })
+  }
 
 
 

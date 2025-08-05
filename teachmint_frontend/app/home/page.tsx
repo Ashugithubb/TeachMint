@@ -9,6 +9,8 @@ import Students from "../components/student";
 
 import SearchComponent from "../components/SearchComponent"
 import AddStudentComponent from "../components/AddStudentToClass";
+import { useAppDispatch } from "../redux/hook/hook";
+import { getClassAttendanceThunk } from "../redux/slice/class.attendance";
 
 export default function Home() {
     const [addClass, setAddClass] = useState(false);
@@ -16,12 +18,15 @@ export default function Home() {
     const [AddStudent, setAddStudent] = useState(false);
     const [listOfStudents,setListOfStudent] = useState(false);
 
+    const dispatch = useAppDispatch()
 
     const handelAddClick = () => {
+
         setAddClass(!addClass)
     }
     const handelShowClassClick = () => {
         setShowClass(!showClass);
+
     }
 
     return (

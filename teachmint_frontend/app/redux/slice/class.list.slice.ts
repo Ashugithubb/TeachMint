@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getClassThunk = createAsyncThunk(
-  'posts/getUserPosts',
+  'class/getClass',
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`http://localhost:3001/class`);
