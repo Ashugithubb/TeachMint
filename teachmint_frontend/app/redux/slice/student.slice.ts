@@ -66,7 +66,7 @@ const studentSlice = createSlice({
             })
             .addCase(getAllStudentThunk.fulfilled, (state, action: PayloadAction<StudentsState>) => {
                 state.loading = false;
-                console.log("addCase", action.payload.student);
+                console.log("addCase", action.payload);
                 state.student = action.payload.student || [];
                 state.total = action.payload.total || 0;
                 state.page = action.payload.page || 1;

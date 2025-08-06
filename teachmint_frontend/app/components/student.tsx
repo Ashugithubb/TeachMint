@@ -11,8 +11,6 @@ export default function Students() {
     const { student = [], loading, total, page, limit } = useAppSelector((state) => state.student);
 
 
-
-
     useEffect(() => {
         const fetchStudents = async () => {
             const res = await dispatch(getAllStudentThunk({ limit: 3, page }));
